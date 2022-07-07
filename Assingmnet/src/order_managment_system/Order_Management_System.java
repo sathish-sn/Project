@@ -1,5 +1,6 @@
 package order_managment_system;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import order_managment_system.OrderManagement.Order;
@@ -7,8 +8,8 @@ import order_managment_system.OrderManagement.Order;
 public class Order_Management_System extends Thread implements OrderManagement {
 	
 
-	public static void main(String[] args) {
-		Order obj = new Order();
+	public static void main(String[] args) throws FileNotFoundException {
+		Order obj1 = new Order();
 	//	obj.run();
 		while(true) 
 		{
@@ -36,35 +37,35 @@ public class Order_Management_System extends Thread implements OrderManagement {
 				
 				case 1:
 					
-				    obj.Add_order();
+				    obj1.Add_order();
 				
 				    break;
 				case 2:
-					obj.ViewOrderList();
+					obj1.ViewOrderList();
 					break;
 				case 3:
 					while(true) {
 					System.out.println("Enter the Order id ");
 					String id = scan.next();
-					obj.ViewOrderList(id);
+					obj1.ViewOrderList(id);
 					break;
 					}
 					break;
 				
 				case 4:
-					obj.sortOrder();
+					obj1.sortOrder();
 					break;
 				case 5:
-					obj.DeleteById();
+					obj1.DeleteById();
 					break;
 				case 6:
-					obj.MarkAsDel();
+					obj1.MarkAsDel();
 					break;
 				case 7:
-					obj.CancleById();
+					obj1.CancleById();
 					break;
 				case 8:
-					obj.GenReport();
+					obj1.GenReport();
 					break;
 				case 9:
 						System.out.println("Exiting the Program.....");

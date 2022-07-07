@@ -24,9 +24,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import order_managment_system.OrderManagement.Order;
 
 interface OrderManagement {
-	
+
 	public class Order {
-		private static String path = null,rPath="Delivered";
+		private static String path = null, rPath = "Delivered";
 		private String Order_id;
 		private String Order_Description;
 		private String D_Address;
@@ -36,11 +36,10 @@ interface OrderManagement {
 		static Scanner scan = new Scanner(System.in);
 		DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd'@'HH:mm:ss");
 		Date now = new Date();
-	
+		SortFuction obj = new SortFuction();
 		static ArrayList<String> list = new ArrayList<String>();
-		
-		public void Add_order() {//ArrayList list = new ArrayList();
 
+		public void Add_order() {
 			System.out.println("Enter Order Id ");
 			Order_id = scan.next();
 			try {
@@ -49,7 +48,7 @@ interface OrderManagement {
 
 				while (scan.hasNext()) {
 					list.add(scan.next());
-				} 
+				}
 				for (int i = 0; i < list.size(); i++) {
 					if (list.get(i).equals(Order_id)) {
 
@@ -62,13 +61,13 @@ interface OrderManagement {
 				e.printStackTrace();
 			}
 			list.add(Order_id);
-			System.out.println("Enetr Order Description ");
+			System.out.println("Enter Order Description ");
 			Order_Description = scan.next();
 			list.add(Order_Description);
-			System.out.println("Enetr Order Delivery Address ");
+			System.out.println("Enter Order Delivery Address ");
 			D_Address = scan.next();
 			list.add(D_Address);
-			System.out.println("Enetr the Amount ");
+			System.out.println("Enter the Amount ");
 			Amount = scan.next();
 			list.add(Amount);
 			System.out.println("order time = " + dtf.format(now));
@@ -105,78 +104,57 @@ interface OrderManagement {
 			}
 		}
 
-		public void ViewOrderList() {
-			String filePath = "C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt";
-			try {
-			//	FileInputStream fis = new FileInputStream(filePath);
-				Scanner scan = new Scanner(new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt"));
-				ArrayList<String> list1 = new ArrayList<String>();
-				while (scan.hasNext()) {
-					list1.add(scan.next());
-				}
-				//int i = fis.read();
-				System.out.println("Order id | Order Description | Delivery Address | Amount | Order date | Delivery date | Status ");
-				for(int i=0; i<list1.size(); i++) {
-					String str =list1.get(i);
-					int len = str.length();
-					String str1 = str+"       ";
-					System.out.print(str1 + " |");
-					if((i+1)%7==0) {
-						System.out.println();
-					}
-				}
-//				while (i != -1) {
-//					System.out.print((char) i );
-//					i = fis.read();
-//				}
-//				
-//				System.out.println();
-//				fis.close();
-			} catch (FileNotFoundException ex) {
-				System.out.println(ex);
-				ex.getMessage();
-			} catch (IOException ex) {
-				System.out.println("cannot read the file");
-			}
+		public void ViewOrderList() throws FileNotFoundException {
 
+			ArrayList<String> list1 = new ArrayList<String>();
+
+			list1 = obj.GetList();
+			System.out.println(
+					"-------------------------------------------------------------------------------------------------");
+			System.out.println(
+					"|Order id | Order Description | Delivery Address | Amount | Order date | Delivery date | Status  |");
+			System.out.println(
+					"-------------------------------------------------------------------------------------------------");
+			for (int i = 0; i < list1.size(); i++) {
+				String str = list1.get(i);
+				int len = str.length();
+
+				System.out.print(str + "\t");
+				if ((i + 1) % 7 == 0) {
+					System.out.println();
+				}
+			}
 		}
 
 		public void ViewOrderList(String id) {
-			try {
-				Scanner scan = new Scanner(new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt"));
 
-				ArrayList<String> list1 = new ArrayList<String>();
-				ArrayList<String> data = new ArrayList<String>();
-				data.add("Order id "); data.add("Order Description");data.add("Delivery Address");data.add("Amount ");data.add("Order date ");
-				data.add("Delivery date ");data.add("Status ");
-				while (scan.hasNext()) {
-					list1.add(scan.next());
-				}
-				if (!(list1.contains(id))) {
+			ArrayList<String> list1 = new ArrayList<String>();
+			ArrayList<String> data = new ArrayList<String>();
+			list1 = obj.GetList();
+			data.add("Order id ");
+			data.add("Order Description");
+			data.add("Delivery Address");
+			data.add("Amount ");
+			data.add("Order date ");
+			data.add("Delivery date ");
+			data.add("Status ");
 
-					System.out.println("Please enter valid Order Id");
-					return;
-				}
-				//System.out.println("returnig");
-				int ind = list1.indexOf(id);
-				int count=0;
-				System.out.println("----------------------------------");
-				System.out.println("Order Detail :");
-				System.out.println("----------------------------------");
-				for (int i = ind; i < ind + 6; i++) {
-					//System.out.print(list1.get(i) + " ");
-				
-						System.out.println(data.get(count)+":"+list1.get(i));
-					count++;
-				}
+			if (!(list1.contains(id))) {
+
+				System.out.println("Please enter valid Order Id");
 				return;
-				//scan.close();
-				
-
-			} catch (Exception e) {
-				System.out.println("Enter valid order id");
 			}
-			
+			int ind = list1.indexOf(id);
+			int count = 0;
+			System.out.println("----------------------------------");
+			System.out.println("Order Detail :");
+			System.out.println("----------------------------------");
+			for (int i = ind; i < ind + 6; i++) {
+
+				System.out.println(data.get(count) + ":" + list1.get(i));
+				count++;
+			}
+			return;
 
 		}
 
@@ -219,16 +197,13 @@ interface OrderManagement {
 
 		public void DeleteById() {
 			System.out.println("Enter the Order id ");
-			String O_id = scan.next();
+			String Order_id = scan.next();
 			try {
-				Scanner scan = new Scanner(new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt"));
 				ArrayList<String> list2 = new ArrayList<String>();
-				while (scan.hasNext()) {
-					list.add(scan.next());
-				}
-				System.out.println(list);
 
-				if (!(list.contains(O_id))) {
+				System.out.println(list);
+				list2 = obj.GetList();
+				if (!(list2.contains(Order_id))) {
 
 					System.out.println("Please enter valid Order Id");
 					DeleteById();
@@ -249,7 +224,7 @@ interface OrderManagement {
 
 				for (int i = 0; i < list3.size(); i++) {
 					String str = (String) list3.get(i);
-					if (str.startsWith(O_id)) {
+					if (str.startsWith(Order_id)) {
 
 						break;
 					}
@@ -263,7 +238,6 @@ interface OrderManagement {
 					System.out.println("Id not Found the file is empty");
 					return;
 				}
-				System.out.println(list3);
 				scan.close();
 				File file = new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt");
 				PrintWriter writer = new PrintWriter(file);
@@ -304,47 +278,55 @@ interface OrderManagement {
 
 		}
 
-		public void MarkAsDel() {
+		public void MarkAsDel() throws FileNotFoundException {
 			System.out.println("enter order id ");
 			Order_id = scan.next();
-			
-			
-			try {
-				Scanner scan = new Scanner(new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt"));
-				ArrayList list3 = new ArrayList();
-				while (scan.hasNext()) {
-					list3.add(scan.next());
-				}
-				if(!(list3.contains(Order_id)))
-				{
-					System.out.println("Pleae enter valid order id");
-					 MarkAsDel();
-				}
-				int ind = list3.indexOf(Order_id);
-				for (int i = ind; i < ind + 7; i++) {
-					list3.set((ind + 6), "Delivered");
-				}
-				File file = new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt");
-				PrintWriter writer = new PrintWriter(file);
-				writer.print("");
-				writer.close();
-				try {
-					FileWriter fw = new FileWriter("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt", true);
-					for (int i = 0; i < list3.size(); i++) {
-						fw.write(list3.get(i) + "  ");
-						if ((i + 1) % 7 == 0) {
-							fw.write("\n");
-						}
 
+			ArrayList list3 = new ArrayList();
+
+			list3 = obj.GetList();
+			if (!(list3.contains(Order_id))) {
+				System.out.println("Pleae enter valid order id");
+				MarkAsDel();
+			}
+			int ind = list3.indexOf(Order_id);
+			if (list3.get((ind + 6)).equals("Delivered")) {
+				System.out.println("Order is already delivered on : " + list3.get(ind + 5));
+				MarkAsDel();
+			}
+			if ((list3.get(ind + 6).equals("Cancelled"))) {
+				System.out.println("Order is already cancelled! Cannot Deliver");
+				MarkAsDel();
+			}
+			for (int i = ind; i < ind + 7; i++) {
+				list3.set((ind + 6), "Delivered");
+			}
+			File file = new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt");
+			PrintWriter writer = new PrintWriter(file);
+			writer.print("");
+			writer.close();
+			try {
+				FileWriter fw = new FileWriter("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt", true);
+				for (int i = 0; i < list3.size(); i++) {
+					fw.write(list3.get(i) + "  ");
+					if ((i + 1) % 7 == 0) {
+						fw.write("\n");
 					}
-					fw.close();
-					System.out.println("Order is already delivered on : " + list3.get(ind+5));
-				} catch (Exception e) {
-					System.out.println(e);
-					e.printStackTrace();
+
 				}
+				fw.close();
+
 			} catch (Exception e) {
+				System.out.println(e);
 				e.printStackTrace();
+			}
+			System.out.println("successfully delivered");
+			System.out.println("Do you want to mark other order as delivered (Y/N) ");
+			String ch1 = scan.next();
+			if (ch1.charAt(0) == 'y' || ch1.charAt(0) == 'Y') {
+				MarkAsDel();
+			} else if (ch1.charAt(0) == 'n' || ch1.charAt(0) == 'N') {
+				main();
 			}
 
 		}
@@ -353,37 +335,40 @@ interface OrderManagement {
 			System.out.println("enter order id ");
 			Order_id = scan.next();
 			try {
-				Scanner scan = new Scanner(new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt"));
 				ArrayList list3 = new ArrayList();
-				while (scan.hasNext()) {
-					list3.add(scan.next());
+
+				list3 = obj.GetList();
+				if (!(list3.contains(Order_id))) {
+					System.out.println("Order Id is not found! Please enter valid id");
+					CancleById();
 				}
 				int ind = list3.indexOf(Order_id);
-					if((list3.get(ind+6).equals("Cancelled")))
-					{
-						System.out.println("Order is already cancelled");
-						CancleById();
-					}
-			
-				
-					list3.set((ind + 6), "Cancelled");
-					list3.set((ind + 5),"null");
-					
+				if ((list3.get(ind + 6).equals("Cancelled"))) {
+					System.out.println("Order is already cancelled");
+					CancleById();
+				} else if ((list3.get(ind + 6).equals("Delivered"))) {
+					System.out.println("Cannot marked as Cancelled. The product is already delivered");
+					CancleById();
+				}
+
+				list3.set((ind + 6), "Cancelled");
+				list3.set((ind + 5), "null");
+
 				File file = new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt");
 				PrintWriter writer = new PrintWriter(file);
 				writer.print("");
 				writer.close();
-				
-					FileWriter fw = new FileWriter("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt", true);
-					for (int i = 0; i < list3.size(); i++) {
-						fw.write(list3.get(i) + "  ");
-						if ((i + 1) % 7 == 0) {
-							fw.write("\n");
-						}
 
+				FileWriter fw = new FileWriter("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt", true);
+				for (int i = 0; i < list3.size(); i++) {
+					fw.write(list3.get(i) + "  ");
+					if ((i + 1) % 7 == 0) {
+						fw.write("\n");
 					}
-					fw.close();
-				
+
+				}
+				fw.close();
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -395,7 +380,6 @@ interface OrderManagement {
 			} else if (ch1.charAt(0) == 'n' || ch1.charAt(0) == 'N') {
 				main();
 			}
-
 
 		}
 
@@ -430,21 +414,18 @@ interface OrderManagement {
 
 				ArrayList<String> lf = new ArrayList<>(
 						Files.readAllLines(Paths.get("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt")));
-				//System.out.println(lf);
-				//System.out.println("----------------------------");
+
 				int ind = 0;
 				for (int i = 0; i < lf.size(); i++) {
 					String str1 = lf.get(i);
-					//System.out.println("**********");
 					String s4 = str1.trim();
 					if (s4.endsWith(str))
 						nlist.add(s4 + "\n");
 				}
 
-
 				FileWriter fw = new FileWriter(path, true);
 				for (int i = 0; i < nlist.size(); i++) {
-					fw.write(nlist.get(i) );
+					fw.write(nlist.get(i));
 					if ((i + 1) % 10 == 0) {
 						fw.write("\n");
 					}
