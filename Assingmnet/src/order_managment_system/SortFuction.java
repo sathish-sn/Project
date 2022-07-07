@@ -19,7 +19,6 @@ public class SortFuction implements OrderManagement {
 		while (scan.hasNext()) {
 			list.add(scan.next());
 		}
-		//System.out.println(list);
 		return (list);
 	}
 

@@ -10,7 +10,6 @@ public class Order_Management_System extends Thread implements OrderManagement {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		Order obj1 = new Order();
-	//	obj.run();
 		while(true) 
 		{
 			System.out.println("Menu :");
