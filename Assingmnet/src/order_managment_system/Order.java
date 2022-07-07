@@ -36,6 +36,7 @@ interface OrderManagement {
 		static Scanner scan = new Scanner(System.in);
 		DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd'@'HH:mm:ss");
 		Date now = new Date();
+	
 		static ArrayList<String> list = new ArrayList<String>();
 		
 		public void Add_order() {//ArrayList list = new ArrayList();
