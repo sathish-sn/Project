@@ -403,7 +403,7 @@ interface OrderManagement {
 
 		}
 
-		private static String byStatus(String str) {
+		private static String byStatus(String str)  {
 
 			createFileStamp();
 			System.out.println(path);
@@ -457,7 +457,7 @@ interface OrderManagement {
 			}
 
 			int ch = scan.nextInt();
-			switch (1) {
+			switch (ch) {
 			case 1:
 				try {
 					File file = new File("C:/Users/Sathisha Narayana/Desktop/GenaralReport.txt");
@@ -491,38 +491,21 @@ interface OrderManagement {
 
 				switch (ch1) {
 				case 1:
-					String str = "In_Progress";
-					byStatus(str);
+					Test1 str = new Test1("In_Progress");
+					new Thread(str).start();		
 					break;
 				case 2:
-					String str1 = "Delivered";
-					byStatus(str1);
+					Test1 str1 = new Test1("In_Progress");
+					new Thread(str1).start();
 					break;
 				case 3:
-					String str2 = "Cancelled";
-					byStatus(str2);
+					Test1 str2 = new Test1("In_Progress");
+					new Thread(str2).start();
 					break;
 				}
 
 			}
 		}
-//		public static void run() {
-//			
-//			System.out.println("Generating Report");
-//			try {
-//				 GenReport();
-//				
-//				byStatus(rPath);
-//				Thread.sleep(2000);
-//				byStatus("In_Progress");
-//				Thread.sleep(2000);
-//				byStatus("Cancelled");
-//				
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//
-//		}
 	}
 
 }
