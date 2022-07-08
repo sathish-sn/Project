@@ -25,8 +25,11 @@ public class Order_Management_System extends Thread implements OrderManagement {
 			System.out.println("              7.)Cancel Order ");
 			System.out.println("              8.)Generate Report.  ");
 			System.out.println("              9.)Exit ");
+			System.out.println("Choose Option");
+			try {
 			int choose =0;
 			Scanner scan = new Scanner(System.in);
+			
 			 choose = scan.nextInt();
 			 
 		
@@ -67,6 +70,7 @@ public class Order_Management_System extends Thread implements OrderManagement {
 					obj1.GenReport();
 					break;
 				case 9:
+					System.out.println("Updating Current Order Details.........");
 						System.out.println("Exiting the Program.....");
 					
 						System.exit(0);
@@ -74,6 +78,10 @@ public class Order_Management_System extends Thread implements OrderManagement {
 					System.out.println("Please select the valid Option");
 					
 		   }
+		}catch(Exception e) {
+			System.out.println("Please select the valid Option");
+		}
+			
 	   }
     }
 }

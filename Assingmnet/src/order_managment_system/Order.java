@@ -1,27 +1,15 @@
 package order_managment_system;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.ListIterator;
 import java.util.Scanner;
-import java.util.concurrent.ConcurrentHashMap;
-
-import order_managment_system.OrderManagement.Order;
 
 interface OrderManagement {
 
@@ -29,22 +17,22 @@ interface OrderManagement {
 		private static String path = null, rPath = "Delivered";
 		private String Order_id;
 		private String Order_Description;
-		private String D_Address;
+		private String Delivery_Address;
 		private String Order_date;
-		private String Amount;
-		private String D_DateTime;
+		private Double Amount;
+		private String D_DateTime; 
 		static Scanner scan = new Scanner(System.in);
-		DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd'@'HH:mm:ss");
-		Date now = new Date();
+		static DateFormat dtf = new SimpleDateFormat("yyyy/MM/dd'@'HH:mm:ss");
+		 Date now = new Date();
 		SortFuction obj = new SortFuction();
-		static ArrayList<String> list = new ArrayList<String>();
+		static ArrayList list = new ArrayList();
 
 		public void Add_order() {
 			System.out.println("Enter Order Id ");
 			Order_id = scan.next();
 			try {
 				Scanner scan = new Scanner(new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt"));
-				ArrayList<String> list = new ArrayList<String>();
+				ArrayList list = new ArrayList();
 
 				while (scan.hasNext()) {
 					list.add(scan.next());
@@ -65,12 +53,18 @@ interface OrderManagement {
 			Order_Description = scan.next();
 			list.add(Order_Description);
 			System.out.println("Enter Order Delivery Address ");
-			D_Address = scan.next();
-			list.add(D_Address);
+			Delivery_Address = scan.next();
+			list.add(Delivery_Address);
 			System.out.println("Enter the Amount ");
-			Amount = scan.next();
+			try {
+			Amount = scan.nextDouble();
+			}catch(Exception e) {
+				System.out.println("please enter valid amount");
+				
+			}
 			list.add(Amount);
-			System.out.println("order time = " + dtf.format(now));
+			System.out.println("order time = " + dtf.format(new Date())); 
+		
 			list.add(dtf.format(now));
 			Calendar c = Calendar.getInstance();
 			c.setTime(new Date()); // Using today's date
@@ -78,13 +72,13 @@ interface OrderManagement {
 			String output = dtf.format(c.getTime());
 			System.out.println("Delivery Time = " + output);
 			list.add(output);
-			System.out.println("Order stuts : ");
+			System.out.println("Order stuts : In_Progress");
 			list.add("In_Progress");
 
 			try {
 				FileWriter fw = new FileWriter("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt", true);
 				for (int i = 0; i < 7; i++) {
-					fw.write((String) list.get(i) + "   ");
+					fw.write(list.get(i) + "\t");
 				}
 				fw.write("\n");
 				fw.close();
@@ -106,7 +100,7 @@ interface OrderManagement {
 
 		public void ViewOrderList() throws FileNotFoundException {
 
-			ArrayList<String> list1 = new ArrayList<String>();
+			ArrayList list1 = new ArrayList<String>();
 
 			list1 = obj.GetList();
 			System.out.println(
@@ -116,7 +110,7 @@ interface OrderManagement {
 			System.out.println(
 					"-------------------------------------------------------------------------------------------------");
 			for (int i = 0; i < list1.size(); i++) {
-				String str = list1.get(i);
+				String str = (String) list1.get(i);
 				int len = str.length();
 
 				System.out.print(str + "\t");
@@ -128,8 +122,8 @@ interface OrderManagement {
 
 		public void ViewOrderList(String id) {
 
-			ArrayList<String> list1 = new ArrayList<String>();
-			ArrayList<String> data = new ArrayList<String>();
+			ArrayList list1 = new ArrayList<String>();
+			ArrayList data = new ArrayList<String>();
 			list1 = obj.GetList();
 			data.add("Order id ");
 			data.add("Order Description");
@@ -199,9 +193,9 @@ interface OrderManagement {
 			System.out.println("Enter the Order id ");
 			String Order_id = scan.next();
 			try {
-				ArrayList<String> list2 = new ArrayList<String>();
+				ArrayList list2 = new ArrayList();
 
-				System.out.println(list);
+				//System.out.println(list);
 				list2 = obj.GetList();
 				if (!(list2.contains(Order_id))) {
 
@@ -339,7 +333,7 @@ interface OrderManagement {
 
 				list3 = obj.GetList();
 				if (!(list3.contains(Order_id))) {
-					System.out.println("Order Id is not found! Please enter valid id");
+					System.out.println("Order Id is not available");
 					CancleById();
 				}
 				int ind = list3.indexOf(Order_id);
@@ -385,13 +379,16 @@ interface OrderManagement {
 
 		static String createFileStamp() {
 			try {
-				String filename = new Date().getTime() + "Order_Report_" + ".txt";
-
+//				//String d = dtf.format(now);
+//				System.out.println(d);
+				String filename,filename1;
+				
+					filename1 =  new SimpleDateFormat("yyyy-MMdd-HHmm'.txt'").format(new Date());
+					filename = "Order_Report_" + filename1;
 				File file = new File("C://Users//Sathisha Narayana//Desktop//Reports//" + filename);
 				boolean value = file.createNewFile();
 				System.out.println(file.getAbsolutePath());
 				path = file.getAbsolutePath();
-
 				if (value)
 					System.out.println("file created");
 				else
@@ -403,43 +400,6 @@ interface OrderManagement {
 
 		}
 
-		private static String byStatus(String str)  {
-
-			createFileStamp();
-			System.out.println(path);
-			try {
-				Scanner scd = new Scanner(System.in);
-				ListIterator li = null;
-				ArrayList<String> nlist = new ArrayList<>();
-
-				ArrayList<String> lf = new ArrayList<>(
-						Files.readAllLines(Paths.get("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt")));
-
-				int ind = 0;
-				for (int i = 0; i < lf.size(); i++) {
-					String str1 = lf.get(i);
-					String s4 = str1.trim();
-					if (s4.endsWith(str))
-						nlist.add(s4 + "\n");
-				}
-
-				FileWriter fw = new FileWriter(path, true);
-				for (int i = 0; i < nlist.size(); i++) {
-					fw.write(nlist.get(i));
-					if ((i + 1) % 10 == 0) {
-						fw.write("\n");
-					}
-				}
-				fw.write("\n");
-				fw.close();
-				System.out.println("Report Generated Successfully");
-
-			} catch (Exception e) {
-				System.out.println(e);
-			}
-			return null;
-
-		}
 
 		public static void GenReport() {
 			System.out.println(" ******** Choose Report Generation Option ********* ");
@@ -468,7 +428,7 @@ interface OrderManagement {
 
 					FileWriter fw = new FileWriter("C:/Users/Sathisha Narayana/Desktop/GenaralReport.txt", true);
 					for (int i = 0; i < list.size(); i++) {
-						fw.write(list.get(i) + "\t" + " | " + "\t");
+						fw.write(list.get(i) + "\t");
 						if ((i + 1) % 7 == 0) {
 							fw.write("\n");
 						}
@@ -495,11 +455,11 @@ interface OrderManagement {
 					new Thread(str).start();		
 					break;
 				case 2:
-					Test1 str1 = new Test1("In_Progress");
+					Test1 str1 = new Test1("Delivered");
 					new Thread(str1).start();
 					break;
 				case 3:
-					Test1 str2 = new Test1("In_Progress");
+					Test1 str2 = new Test1("Cancelled");
 					new Thread(str2).start();
 					break;
 				}

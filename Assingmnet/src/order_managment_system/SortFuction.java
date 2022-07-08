@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class SortFuction implements OrderManagement {
 	static Scanner scan = new Scanner(System.in);
 
-	public static ArrayList<String> GetList() {
-		ArrayList<String> list = new ArrayList<String>();
+	public static ArrayList  GetList() {
+		ArrayList  list = new ArrayList ();
 		try {
 			scan = new Scanner(new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt"));
 		} catch (FileNotFoundException e) {
@@ -29,7 +29,7 @@ public class SortFuction implements OrderManagement {
 		System.out.println("            2).Descending             ");
 		int num = scan.nextInt();
 
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList  list = new ArrayList ();
 		list = GetList();
 
 		ArrayList IDlist = new ArrayList();
@@ -76,7 +76,7 @@ public class SortFuction implements OrderManagement {
 		Scanner GetNumberInput = new Scanner(System.in);
 		int num = GetNumberInput.nextInt();
 
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList  list = new ArrayList ();
 
 		list = GetList();
 		ArrayList or_desc = new ArrayList();
@@ -106,7 +106,7 @@ public class SortFuction implements OrderManagement {
 
 			for (int i = ind - 1; i < ind + 6; i++) {
 
-				System.out.print(list.get(i) + "      |");
+				System.out.print(list.get(i) + "\t");
 			}
 			System.out.println();
 		}
@@ -121,7 +121,7 @@ public class SortFuction implements OrderManagement {
 		System.out.println("            2).Descending             ");
 		int num = scan.nextInt();
 
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList  list = new ArrayList ();
 		list = GetList();
 		ArrayList d_add = new ArrayList();
 		for (int i = 2; i < list.size(); i = i + 7) {
@@ -136,7 +136,7 @@ public class SortFuction implements OrderManagement {
 			break;
 		}
 
-		ArrayList<String> tempList = new ArrayList<String>(list);
+		ArrayList  tempList = new ArrayList (list);
 		System.out.println(
 				"-------------------------------------------------------------------------------------------------");
 		System.out.println(
@@ -167,7 +167,7 @@ public class SortFuction implements OrderManagement {
 		System.out.println("            1).Ascending            ");
 		System.out.println("            2).Descending             ");
 		int num = scan.nextInt();
-		ArrayList<String> list2 = new ArrayList<String>();
+		ArrayList  list2 = new ArrayList ();
 		list2 = GetList();
 
 		ArrayList amount = new ArrayList();
@@ -186,11 +186,11 @@ public class SortFuction implements OrderManagement {
 
 		try {
 			Scanner scan = new Scanner(new File("C:/Users/Sathisha Narayana/Desktop/OrderManagement.txt"));
-			ArrayList<String> list1 = new ArrayList<String>();
+			ArrayList  list1 = new ArrayList ();
 			while (scan.hasNext()) {
 				list1.add(scan.next());
 			}
-			ArrayList<String> tempList = new ArrayList<String>(list1);
+			ArrayList  tempList = new ArrayList (list1);
 			System.out.println(
 					"-------------------------------------------------------------------------------------------------");
 			System.out.println(
@@ -212,7 +212,7 @@ public class SortFuction implements OrderManagement {
 
 			scan.close();
 			System.out.println();
-
+			System.out.println("Successfully Sorted by <Property> in <Sort_Order> Order ");
 		} catch (Exception e) {
 			System.out.println("Enter valid order id");
 			e.printStackTrace();
@@ -225,7 +225,7 @@ public class SortFuction implements OrderManagement {
 		System.out.println("            1).Ascending            ");
 		System.out.println("            2).Descending             ");
 		int num = scan.nextInt();
-		ArrayList<String> list2 = new ArrayList<String>();
+		ArrayList  list2 = new ArrayList ();
 		list2 = GetList();
 		ArrayList O_date = new ArrayList();
 		for (int i = 4; i < list2.size(); i = i + 7) {
@@ -240,7 +240,7 @@ public class SortFuction implements OrderManagement {
 			break;
 		}
 
-		ArrayList<String> tempList = new ArrayList<String>(list2);
+		ArrayList  tempList = new ArrayList (list2);
 		System.out.println(
 				"-----------------------------------------------------------------------------------------------------------------------");
 		System.out.println(
@@ -270,7 +270,7 @@ public class SortFuction implements OrderManagement {
 		System.out.println("            2).Descending             ");
 		int num = scan.nextInt();
 
-		ArrayList<String> list2 = new ArrayList<String>();
+		ArrayList  list2 = new ArrayList ();
 		list2 = GetList();
 		ArrayList D_date = new ArrayList();
 		for (int i = 5; i < list2.size(); i = i + 7) {
@@ -285,7 +285,7 @@ public class SortFuction implements OrderManagement {
 			break;
 		}
 
-		ArrayList<String> tempList = new ArrayList<String>(list2);
+		ArrayList  tempList = new ArrayList (list2);
 		System.out.println(
 				"------------------------------------------------------------------------------------------------------------------");
 		System.out.println(
